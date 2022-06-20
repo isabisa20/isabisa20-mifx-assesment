@@ -24,8 +24,14 @@ class PostBookRequest extends FormRequest
     public function rules()
     {
         // @TODO implement
+        //Validation Request POST from Book
         return [
-            //
+            'isbn' => ['regex:/^[0-9]+$/',"min:13",'max:13','unique:App\Book,isbn'],
+            'title' => ['string'],
+            'description' => ['string'],
+            'authors' => ['array','min:1'],
+            'authors.*' => ['exists:authors,id','numeric'],
+            'published_year' => ['integer','between:1900,2020']
         ];
     }
 }
